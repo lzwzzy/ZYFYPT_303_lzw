@@ -8,11 +8,11 @@
             android:icon="@mipmap/ic_mine_gray_24"/>
         <item
             android:id="@+id/nav_friend"
-            android:title="好友"
+            android:title="关注"
             android:icon="@mipmap/ic_friends_gray_24"/>
         <item
             android:id="@+id/nav_notification"
-            android:title="通知"
+            android:title="收藏"
             android:icon="@mipmap/ic_notification_gray_24"/>
         <item
             android:id="@+id/nav_message"
