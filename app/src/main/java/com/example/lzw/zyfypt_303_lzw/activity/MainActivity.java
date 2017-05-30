@@ -186,6 +186,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
+            Intent intent = new Intent(MainActivity.this,SettingActivity.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -204,13 +206,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String string = null;
         switch (id) {
             case R.id.nav_me:
-                string = "我";
+
+                if (sessionid==null){
+                    string = "请先登陆";
+                }else {
+                    Intent intent = new Intent(this,UserInfoActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.nav_about:
                 string = "关于";
                 break;
             case R.id.nav_friend:
-                string = "好友";
+                string = "关注";
                 break;
             case R.id.nav_message:
                 string = "私信";
@@ -219,7 +227,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 string = "夜间模式";
                 break;
             case R.id.nav_notification:
-                string = "通知";
+                string = "收藏";
                 break;
             case R.id.nav_setting:
                 string = "设置";

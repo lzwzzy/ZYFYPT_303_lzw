@@ -12,10 +12,28 @@ public class MyApplication extends Application {
     private String username;
     private String rolename;
     private String mod;
-
+    private String realname;
+    private String sex;
     @Override
     public void onCreate() {
         super.onCreate();
+    }
+
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
     }
 
     public String getMod() {

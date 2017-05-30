@@ -82,6 +82,7 @@ public class ResourceAdapter extends RecyclerView.Adapter {
             public void onClick(View v) {
 
                 int id = list.get(position).getId();
+                int userid = list.get(position).getUserid();
                 String pdfattach = list.get(position).getPdfattach();
                 String videopath = list.get(position).getVideopath();
                 String name = list.get(position).getName();
@@ -90,16 +91,21 @@ public class ResourceAdapter extends RecyclerView.Adapter {
                     Intent intent = new Intent(context, ViewTwareActivity.class);
                     intent.putExtra("pdfattach",pdfattach);
                     intent.putExtra("name",name);
+                    intent.putExtra("resid",id);
+                    intent.putExtra("userid",userid);
                     context.startActivity(intent);
                 }else if (videopath != null){
                     Intent intent1 = new Intent(context, ViewVideoActivity.class);
                     intent1.putExtra("videopath",videopath);
+                    intent1.putExtra("resid",id);
+                    intent1.putExtra("userid",userid);
                     context.startActivity(intent1);
                 }else {
                     //Toast.makeText(context,pdfattach+name,Toast.LENGTH_SHORT).show();
                     //跳转到详情页
                     Intent intent2 = new Intent(context, DetailActivity.class);
-                    intent2.putExtra("id",id);
+                    intent2.putExtra("resid",id);
+                    intent2.putExtra("userid",userid);
                     context.startActivity(intent2);
                 }
 

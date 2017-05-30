@@ -43,8 +43,12 @@
         <activity
             android:name=".activity.DetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.ViewTwareActivity"></activity>
-        <activity android:name=".activity.ViewVideoActivity"></activity>
+        <activity android:name=".activity.ViewTwareActivity" />
+        <activity
+            android:name=".activity.ViewVideoActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.SettingActivity" />
+        <activity android:name=".activity.UserInfoActivity"></activity>
     </application>
 
 </manifest>

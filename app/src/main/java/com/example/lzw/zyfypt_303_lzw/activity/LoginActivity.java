@@ -64,6 +64,8 @@ public class LoginActivity extends AppCompatActivity {
                 application.setSessionid(loginBean.getSessionid());
                 application.setUsername(loginBean.getUsername());
                 application.setRolename(loginBean.getRolename());
+                application.setRealname(loginBean.getRealname());
+                application.setSex(loginBean.getSex());
                 Log.d(TAG, "onResponse: " + loginBean.getSessionid());
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
