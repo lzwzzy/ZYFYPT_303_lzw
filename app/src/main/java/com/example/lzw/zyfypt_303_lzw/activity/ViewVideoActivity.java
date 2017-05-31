@@ -38,6 +38,8 @@ public class ViewVideoActivity extends AppCompatActivity {
 
     private int resid;//资源id
     private int userid;//资源用户id
+    private String mod;
+    private String name;
     Context context;
 
     private Boolean flagcollect=false;//收藏标志
@@ -57,16 +59,20 @@ public class ViewVideoActivity extends AppCompatActivity {
             switch (msg)
             {
                 case "2": System.out.println("----收藏成功");
+                    Toast.makeText(context, "收藏成功", Toast.LENGTH_SHORT).show();
                     flagcollect=true;
                     item.setTitle("取消收藏");
                     break;
                 case "1":System.out.println("----收藏失败");
+                    Toast.makeText(context, "收藏失败", Toast.LENGTH_SHORT).show();
                     break;
                 case "5":System.out.println("----取消收藏成功");
+                    Toast.makeText(context, "取消收藏成功", Toast.LENGTH_SHORT).show();
                     flagcollect=false;
                     item.setTitle("收藏");
                     break;
                 case "4":System.out.println("----取消收藏失败");
+                    Toast.makeText(context, "取消收藏失败", Toast.LENGTH_SHORT).show();
                     break;
                 case "7":System.out.println("----已收藏");
                     flagcollect=true;
@@ -89,10 +95,12 @@ public class ViewVideoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_video);
+        name=getIntent().getStringExtra("name");
         toolBarInit();
         context=ViewVideoActivity.this;
         application = (MyApplication) getApplication();
         sessionID = application.getSessionid();
+        mod = application.getMod();
         resid  = getIntent().getIntExtra("resid",1);//获取传递的资源id
         userid = getIntent().getIntExtra("userid",7);//获取传递的资源用户id
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//设置屏幕方向为横向
@@ -115,7 +123,7 @@ public class ViewVideoActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("课件详情");
+        actionBar.setTitle(name);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
     }
@@ -142,7 +150,7 @@ public class ViewVideoActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.detail, menu);//加载菜单布局
         collectmodel=new CollectModel();//实例化对象
-        collectmodel.exist("article",resid,sessionID,listener);//判断是否收藏
+        collectmodel.exist(mod,resid,sessionID,listener);//判断是否收藏
         return true;
     }
 
@@ -155,12 +163,12 @@ public class ViewVideoActivity extends AppCompatActivity {
                 if(flagcollect)//如果已收藏，则调用取消收藏
                 {
                     System.out.println("----准备取消收藏");
-                    collectmodel.uncollect("article",resid,sessionID,listener);
+                    collectmodel.uncollect(mod,resid,sessionID,listener);
                 }
                 else//如果未收藏，则调用收藏
                 {
                     System.out.println("----准备收藏");
-                    collectmodel.collect("article",resid,sessionID,listener);
+                    collectmodel.collect(mod,resid,sessionID,listener);
                 }
                 break;
             case R.id.menufocus:

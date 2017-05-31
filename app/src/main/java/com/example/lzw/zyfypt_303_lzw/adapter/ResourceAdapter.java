@@ -96,6 +96,7 @@ public class ResourceAdapter extends RecyclerView.Adapter {
                     context.startActivity(intent);
                 }else if (videopath != null){
                     Intent intent1 = new Intent(context, ViewVideoActivity.class);
+                    intent1.putExtra("name",name);
                     intent1.putExtra("videopath",videopath);
                     intent1.putExtra("resid",id);
                     intent1.putExtra("userid",userid);
@@ -106,6 +107,7 @@ public class ResourceAdapter extends RecyclerView.Adapter {
                     Intent intent2 = new Intent(context, DetailActivity.class);
                     intent2.putExtra("resid",id);
                     intent2.putExtra("userid",userid);
+                    intent2.putExtra("name",name);
                     context.startActivity(intent2);
                 }
 
