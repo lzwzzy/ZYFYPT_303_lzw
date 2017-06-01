@@ -62,6 +62,7 @@ public abstract class EndLessOnScrollListener extends RecyclerView.OnScrollListe
             onLoadMore(currentPage);
             loading = true;
         }
+
     }
 
     /**

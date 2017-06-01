@@ -1,7 +1,6 @@
 package com.example.lzw.zyfypt_303_lzw.activity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -11,7 +10,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,12 +25,7 @@ import com.example.lzw.zyfypt_303_lzw.fragment.tcase.TcaseFragment;
 import com.example.lzw.zyfypt_303_lzw.fragment.twear.TwareFragment;
 import com.example.lzw.zyfypt_303_lzw.fragment.video.VideoFragment;
 import com.example.lzw.zyfypt_303_lzw.model.LogoutModel;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.startsmake.mainnavigatetabbar.widget.MainNavigateTabBar;
-import static android.content.ContentValues.TAG;
 
 import butterknife.ButterKnife;
 
@@ -85,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     private void initNavigationView() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (sessionid==null||sessionid.equals("")){
+        if (sessionid == null || sessionid.equals("")) {
             toolbar.setTitle("资源复用平台lzw");
         }
 
@@ -139,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onTabSelected(MainNavigateTabBar.ViewHolder holder) {
                 toolbar.setTitleMarginStart(340);
-                switch (holder.tabIndex){
+                switch (holder.tabIndex) {
                     case 0:
                         toolbar.setTitle(R.string.tag_bar_text_article);
                         application.setMod("article");
@@ -186,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
-            Intent intent = new Intent(MainActivity.this,SettingActivity.class);
+            Intent intent = new Intent(MainActivity.this, SettingActivity.class);
             startActivity(intent);
             return true;
         }
@@ -207,10 +200,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (id) {
             case R.id.nav_me:
 
-                if (sessionid==null){
+                if (sessionid == null) {
                     string = "请先登陆";
-                }else {
-                    Intent intent = new Intent(this,UserInfoActivity.class);
+                } else {
+                    Intent intent = new Intent(this, UserInfoActivity.class);
                     startActivity(intent);
                 }
                 break;
@@ -227,6 +220,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 string = "夜间模式";
                 break;
             case R.id.nav_notification:
+                Intent intent = new Intent(this,CollectActivity.class);
+                startActivity(intent);
                 string = "收藏";
                 break;
             case R.id.nav_setting:

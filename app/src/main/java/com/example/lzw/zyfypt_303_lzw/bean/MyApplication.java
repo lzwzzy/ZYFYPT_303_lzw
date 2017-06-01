@@ -14,6 +14,7 @@ public class MyApplication extends Application {
     private String mod;
     private String realname;
     private String sex;
+
     @Override
     public void onCreate() {
         super.onCreate();

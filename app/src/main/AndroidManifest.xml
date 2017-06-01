@@ -16,7 +16,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -43,12 +43,21 @@
         <activity
             android:name=".activity.DetailActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.ViewTwareActivity" />
+        <activity
+            android:name=".activity.ViewTwareActivity"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activity.ViewVideoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.SettingActivity" />
-        <activity android:name=".activity.UserInfoActivity"></activity>
+        <activity
+            android:name=".activity.SettingActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.UserInfoActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.CollectActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -37,8 +37,8 @@
             android:layout_below="@+id/ivAvatar"
             android:paddingTop="@dimen/nav_header_vertical_spacing"
             android:text="@string/click_login"
-            android:textColor="#8F8F8F"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="#8F8F8F" />
 
         <TextView
             android:id="@+id/tvPhoneNumber"

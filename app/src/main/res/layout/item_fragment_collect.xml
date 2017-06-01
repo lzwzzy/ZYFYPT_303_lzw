@@ -70,7 +70,7 @@
                 android:layout_width="45dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="删" />
+                android:text="取消收藏" />
         </LinearLayout>
     </LinearLayout>
 

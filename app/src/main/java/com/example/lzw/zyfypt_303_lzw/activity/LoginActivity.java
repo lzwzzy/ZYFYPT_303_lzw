@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.switch1)
     Switch mRemember;
 
-    private String username,password;
+    private String username, password;
     private SharedPreferences login;
 
     private MyApplication application;
@@ -83,9 +83,9 @@ public class LoginActivity extends AppCompatActivity {
 
     private void saveloginInfo() {
         SharedPreferences.Editor editor = login.edit();
-        editor.putString("username",username);
-        editor.putString("password",password);
-        editor.putBoolean("remember",mRemember.isChecked());
+        editor.putString("username", username);
+        editor.putString("password", password);
+        editor.putBoolean("remember", mRemember.isChecked());
         editor.apply();//提交保存
     }
 
@@ -104,10 +104,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void readloginInfo() {
-        String name = login.getString("username",null);
-        String pass = login.getString("password",null);
-        Boolean isRemember = login.getBoolean("remember",false);
-        if (isRemember){
+        String name = login.getString("username", null);
+        String pass = login.getString("password", null);
+        Boolean isRemember = login.getBoolean("remember", false);
+        if (isRemember) {
             mEditTextName.setText(name);
             mEditTextPassword.setText(pass);
         }

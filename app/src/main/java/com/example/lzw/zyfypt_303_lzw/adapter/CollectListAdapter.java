@@ -14,70 +14,88 @@ import com.example.lzw.zyfypt_303_lzw.R;
 import com.example.lzw.zyfypt_303_lzw.activity.DetailActivity;
 import com.example.lzw.zyfypt_303_lzw.activity.ViewTwareActivity;
 import com.example.lzw.zyfypt_303_lzw.activity.ViewVideoActivity;
-import com.example.lzw.zyfypt_303_lzw.bean.MyApplication;
+import com.example.lzw.zyfypt_303_lzw.bean.CollectBean;
 import com.example.lzw.zyfypt_303_lzw.bean.ResourceBean;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 /**
- * Created by lzw on 2017/4/13.
+ * Created by lzw on 2017/6/1.
  */
 
-public class ResourceAdapter extends RecyclerView.Adapter {
-    private List<ResourceBean> list;
-    private Context context;
-    private LayoutInflater layoutInflater;
-    private MyApplication app;
+public class CollectListAdapter extends RecyclerView.Adapter {
 
-    public ResourceAdapter(Context context) {
+    private Context context;//上下文
+    private LayoutInflater layoutInflater;//动态加载布局
+    private List<CollectBean<ResourceBean>> list;//保存要显示的数据
+
+    public CollectListAdapter(Context context) {
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
     }
 
-    //自定义，设置数据
-    public void setList(List<ResourceBean> list) {
-        this.list = list;
+    class ViewHolder extends RecyclerView.ViewHolder {
+
+        //@BindView(R.id.imageView)
+        private ImageView imageView;
+        //@BindView(R.id.textView)
+        private TextView tvtitle;
+        //@BindView(R.id.textView2)
+        private TextView tvdescrrpt;
+        //@BindView(R.id.textView3)
+        private TextView tvtime;
+        //@BindView(R.id.button)
+        private Button button;
+
+        ViewHolder(View itemView) {
+            super(itemView);
+            //ButterKnife.bind(itemView);
+            imageView = (ImageView) itemView.findViewById(R.id.imageView);
+            tvtitle = (TextView) itemView.findViewById(R.id.textView);
+            tvdescrrpt = (TextView) itemView.findViewById(R.id.textView2);
+            tvtime = (TextView) itemView.findViewById(R.id.textView3);
+            button = (Button) itemView.findViewById(R.id.button);
+        }
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = layoutInflater.inflate(R.layout.item_fragment, parent, false);
-        return new ViewHolder(view);
+        View v = layoutInflater.inflate(R.layout.item_fragment_collect, parent, false);
+        return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        ResourceBean resourceBean = list.get(position);
-        if (resourceBean == null) {
+        ResourceBean resourceBean = list.get(position).getBean();
+        if (resourceBean == null || list.size() == 0)
             return;
-        }
-        ViewHolder viewHolder = (ViewHolder) holder;
+        final ViewHolder viewHolder = (ViewHolder) holder;
+        //viewHolder.imageView.setImageResource(articleBean.getImgid());
         viewHolder.tvtitle.setText(resourceBean.getName());
-        viewHolder.tvdescript.setText(resourceBean.getDescription());
+        viewHolder.tvdescrrpt.setText("描述：" + resourceBean.getDescription());
         viewHolder.tvtime.setText(resourceBean.getUpdate_time());
-
+        //异步加载图片
         Picasso.with(context)
-                .load("http://amicool.neusoft.edu.cn/Uploads/" + resourceBean.getThumb())
+                .load("http://amicool.neusoft.edu.cn/Uploads/"
+                        + resourceBean.getThumb())
                 .placeholder(R.mipmap.ic_launcher)
                 .into(viewHolder.imageView);
 
         viewHolder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                list.remove(position);
-                notifyItemRemoved(position);
+                //TODO
             }
         });
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
-                int id = list.get(position).getId();
+            public void onClick(View view) {
+                int id = list.get(position).getResid();
                 int userid = list.get(position).getUserid();
-                String pdfattach = list.get(position).getPdfattach();
-                String videopath = list.get(position).getVideopath();
-                String name = list.get(position).getName();
+                String pdfattach = list.get(position).getBean().getPdfattach();
+                String videopath = list.get(position).getBean().getVideopath();
+                String name = list.get(position).getBean().getName();
 
                 if (pdfattach != null) {
                     Intent intent = new Intent(context, ViewTwareActivity.class);
@@ -105,31 +123,19 @@ public class ResourceAdapter extends RecyclerView.Adapter {
 
             }
         });
+
     }
 
     @Override
     public int getItemCount() {
-        if (list == null) {
-            return 0;
-        } else {
+        if (list == null) return 0;
+        else
             return list.size();
-        }
 
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imageView;
-        private TextView tvtitle, tvdescript, tvtime;
-        private Button button;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            imageView = (ImageView) itemView.findViewById(R.id.imageView);
-            tvtitle = (TextView) itemView.findViewById(R.id.textView);
-            tvdescript = (TextView) itemView.findViewById(R.id.textView2);
-            tvtime = (TextView) itemView.findViewById(R.id.textView3);
-            button = (Button) itemView.findViewById(R.id.button);
-        }
+    public void setList(List<CollectBean<ResourceBean>> list) {
+        this.list = list;
     }
 
 }

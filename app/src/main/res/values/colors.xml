@@ -12,7 +12,7 @@
     <color name="chat_contact">#ffeeeeee</color>
     <color name="textfield_unselected">#ffb3cad9</color>
     <color name="button_unselected">#ff54acea</color>
-    <color name="button_selected">#ff419de4</color>
+    <color name="button_selected">#419de4</color>
     <color name="transparent">#00000000</color>
     <color name="scrollbar_tbumb_bg">#ffd5d5d5</color>
     <color name="chat_background">@color/window_bg</color>

@@ -6,6 +6,7 @@ package com.example.lzw.zyfypt_303_lzw.listener;
 
 public interface CollectListener {
     void onResponse(String msg);
+
     void onFail(String msg);
 
 }

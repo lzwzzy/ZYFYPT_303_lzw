@@ -4,35 +4,39 @@
     <group android:checkableBehavior="none">
         <item
             android:id="@+id/nav_me"
-            android:title="我"
-            android:icon="@mipmap/ic_mine_gray_24"/>
+            android:icon="@mipmap/ic_mine_gray_24"
+            android:title="我" />
         <item
             android:id="@+id/nav_friend"
-            android:title="关注"
-            android:icon="@mipmap/ic_friends_gray_24"/>
+            android:icon="@mipmap/ic_friends_gray_24"
+            android:title="关注" />
         <item
             android:id="@+id/nav_notification"
-            android:title="收藏"
-            android:icon="@mipmap/ic_notification_gray_24"/>
+            android:icon="@mipmap/ic_notification_gray_24"
+            android:title="收藏" />
         <item
             android:id="@+id/nav_message"
-            android:title="私信"
             android:icon="@mipmap/ic_messages_gray_24"
-            />
+            android:title="私信" />
     </group>
-   <group
-       android:checkableBehavior="none"
-       android:id="@+id/group_settings">
-       <item android:id="@+id/nav_theme"
-           android:title="主题风格"/>
-       <item android:id="@+id/nav_night"
-           android:title="夜间模式"/>
-       <item android:id="@+id/nav_setting"
-           android:title="设置"/>
-       <item android:id="@+id/nav_suggestion"
-           android:title="意见反馈"/>
-       <item android:id="@+id/nav_about"
-           android:title="关于"/>
+    <group
+        android:id="@+id/group_settings"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_theme"
+            android:title="主题风格" />
+        <item
+            android:id="@+id/nav_night"
+            android:title="夜间模式" />
+        <item
+            android:id="@+id/nav_setting"
+            android:title="设置" />
+        <item
+            android:id="@+id/nav_suggestion"
+            android:title="意见反馈" />
+        <item
+            android:id="@+id/nav_about"
+            android:title="关于" />
 
-   </group>
+    </group>
 </menu>

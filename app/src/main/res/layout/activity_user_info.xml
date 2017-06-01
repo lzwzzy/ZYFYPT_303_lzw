@@ -1,38 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
-    android:background="@color/window_bg"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:background="@color/window_bg"
+    android:orientation="vertical">
 
     <ScrollView
-        android:scrollbarThumbVertical="@drawable/scrollbar_handle_vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:visibility="visible"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:scrollbarThumbVertical="@drawable/scrollbar_handle_vertical"
+        android:visibility="visible">
+
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <!-- 界面显示 -->
-            <LinearLayout
-                style="@style/leba_bg_layout">
-                <LinearLayout
-                    style="@style/leba_bg_single_layout">
+            <LinearLayout style="@style/leba_bg_layout">
 
-                    <TextView android:textSize="16.0dip" android:textColor="#ff333333" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dip" android:text="角色" android:layout_weight="1.0" />
+                <LinearLayout style="@style/leba_bg_single_layout">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="12.0dip"
+                        android:layout_weight="1.0"
+                        android:text="角色"
+                        android:textColor="#ff333333"
+                        android:textSize="16.0dip" />
+
+                    <TextView
                         android:id="@+id/rolename"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_weight="0.80" />
 
-                    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="12.0dip" android:src="@drawable/setting_arrow"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="12.0dip"
+                        android:src="@drawable/setting_arrow" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -41,55 +51,93 @@
 
 
             <!--  声音提示	震动提示	     消息提示 -->
-            <LinearLayout
-                style="@style/leba_bg_layout">
+            <LinearLayout style="@style/leba_bg_layout">
                 <!--  声音提示 	-->
-                <LinearLayout
-                    style="@style/leba_bg_top_layout">
-                    <TextView android:textSize="16.0dip" android:textColor="#ff333333" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dip" android:text="用户名" android:layout_weight="1.0" />
+                <LinearLayout style="@style/leba_bg_top_layout">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="12.0dip"
+                        android:layout_weight="1.0"
+                        android:text="用户名"
+                        android:textColor="#ff333333"
+                        android:textSize="16.0dip" />
+
+                    <TextView
                         android:id="@+id/username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_weight="0.90" />
 
-                    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="12.0dip" android:src="@drawable/setting_arrow"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="12.0dip"
+                        android:src="@drawable/setting_arrow" />
                 </LinearLayout>
 
-                <LinearLayout
-                    style="@style/leba_bg_mid_layout">
-                    <TextView android:textSize="16.0dip" android:textColor="#ff333333" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dip" android:text="真实姓名" android:layout_weight="1.0" />
+                <LinearLayout style="@style/leba_bg_mid_layout">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="12.0dip"
+                        android:layout_weight="1.0"
+                        android:text="真实姓名"
+                        android:textColor="#ff333333"
+                        android:textSize="16.0dip" />
+
+                    <TextView
                         android:id="@+id/realname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1.0"
                         android:text="未设置" />
 
-                    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="12.0dip" android:src="@drawable/setting_arrow"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="12.0dip"
+                        android:src="@drawable/setting_arrow" />
                 </LinearLayout>
 
-                <View android:background="@drawable/leba_shape_line" android:layout_width="fill_parent" android:layout_height="1.0px" />
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0px"
+                    android:background="@drawable/leba_shape_line" />
 
                 <!--  震动提示 	-->
 
-                <View android:background="@drawable/leba_shape_line" android:layout_width="fill_parent" android:layout_height="1.0px" />
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1.0px"
+                    android:background="@drawable/leba_shape_line" />
 
                 <!-- 消息提示  -->
-                <LinearLayout
-                    style="@style/leba_bg_bottom_layout">
-                    <TextView android:textSize="16.0dip" android:textColor="#ff333333" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="12.0dip" android:text="性别" android:layout_weight="1.0" />
+                <LinearLayout style="@style/leba_bg_bottom_layout">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="12.0dip"
+                        android:layout_weight="1.0"
+                        android:text="性别"
+                        android:textColor="#ff333333"
+                        android:textSize="16.0dip" />
+
+                    <TextView
                         android:id="@+id/sex"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_weight="0.76"
                         android:text="未设置" />
 
-                    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="12.0dip" android:src="@drawable/setting_arrow"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="12.0dip"
+                        android:src="@drawable/setting_arrow" />
                 </LinearLayout>
             </LinearLayout>
 
