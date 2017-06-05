@@ -1,4 +1,4 @@
-package com.example.lzw.zyfypt_303_lzw.fragment.collect;
+package com.example.lzw.zyfypt_303_lzw.fragment.focus;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -16,12 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lzw.zyfypt_303_lzw.R;
-import com.example.lzw.zyfypt_303_lzw.adapter.CollectListAdapter;
-import com.example.lzw.zyfypt_303_lzw.bean.CollectBean;
+import com.example.lzw.zyfypt_303_lzw.adapter.ResourceAdapter;
 import com.example.lzw.zyfypt_303_lzw.bean.MyApplication;
 import com.example.lzw.zyfypt_303_lzw.bean.ResourceBean;
-import com.example.lzw.zyfypt_303_lzw.listener.CollectListListener;
-import com.example.lzw.zyfypt_303_lzw.model.CollectListModel;
+import com.example.lzw.zyfypt_303_lzw.listener.ResourceListener;
+import com.example.lzw.zyfypt_303_lzw.model.FocusUserResListModel;
 
 import java.util.List;
 
@@ -31,23 +30,23 @@ import static android.content.ContentValues.TAG;
  * Created by lzw on 2017/6/1.
  */
 
-public class CollectFragment extends Fragment {
+public class FocusFragment extends Fragment {
     private int page = 1;
     private int lastVisibleItemPosition;//最后一条可见条目的位置
     private String mod, sessionid;
-
+    private int userid;
     private MyApplication app;
     private View view = null;
     private Context context;
     private RecyclerView recyclerView;
     private LinearLayoutManager layoutManager;//显示效果
-    private CollectListAdapter adapter;
-    private List<CollectBean<ResourceBean>> list = null;
+    private ResourceAdapter adapter;
+    private List<ResourceBean> list = null;
 
 
-    private CollectListListener<ResourceBean> listener = new CollectListListener<ResourceBean>() {
+    ResourceListener listener = new ResourceListener() {
         @Override
-        public void onResponse(List<CollectBean<ResourceBean>> beanlist) {
+        public void onResponse(List<ResourceBean> beanlist) {
             if (page == 1) {
                 list = beanlist;
             } else {
@@ -58,11 +57,10 @@ public class CollectFragment extends Fragment {
                 adapter.setList(list);//传给adapter
                 adapter.notifyDataSetChanged();//通知更新
             }
-
         }
 
         @Override
-        public void onFail(String msg) {
+        public void onFile(String msg) {
             Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
         }
     };
@@ -73,6 +71,7 @@ public class CollectFragment extends Fragment {
         super.onCreate(bundle);
         if (getArguments() != null) {
             mod = getArguments().getString("text");
+            userid = getArguments().getInt("userid");
             Log.d(TAG, "onCreate: " + mod);//TODO
             app = (MyApplication) getActivity().getApplication();
             sessionid = app.getSessionid();
@@ -96,18 +95,18 @@ public class CollectFragment extends Fragment {
             return textView;
         }
         if (view == null) {
-            view = inflater.inflate(R.layout.fragment_collectlist, container, false);
+            view = inflater.inflate(R.layout.fragment_focus_res_list, container, false);
             recyclerViewinit();
-            CollectListModel model = new CollectListModel();
-            model.getResultList(mod, page, sessionid, listener);
+            FocusUserResListModel model = new FocusUserResListModel();
+            model.getResultList(mod, page, sessionid, userid, listener);
         }
         return view;
     }
 
     private void recyclerViewinit() {
-        adapter = new CollectListAdapter(context);
+        adapter = new ResourceAdapter(context);
         //获取布局上的控件，注意通过view获取
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_collect);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView_focus);
         layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
@@ -120,8 +119,8 @@ public class CollectFragment extends Fragment {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItemPosition + 1 == list.size()) {
                     page += 1;
                     //再次实例化ArticleModel，调用方法获取网络数据，请求新一页数据
-                    CollectListModel model1 = new CollectListModel();
-                    model1.getResultList(mod, page, sessionid, listener);
+                    FocusUserResListModel model1 = new FocusUserResListModel();
+                    model1.getResultList(mod, page, sessionid, userid, listener);
                     System.out.println("----onScrollStateChanged  page=" + page);
                 }
 

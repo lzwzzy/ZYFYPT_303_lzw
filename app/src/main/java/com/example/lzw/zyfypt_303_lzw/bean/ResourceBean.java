@@ -7,12 +7,12 @@ package com.example.lzw.zyfypt_303_lzw.bean;
 
 public class ResourceBean {
 
-    private int id;//文章id
+    private int id;//id
     private int userid;//资源用户id
-    private String name;//文章标题
-    private String thumb;//文章图片id，本例使用静态图片
-    private String update_time;//文章时间
-    private String description;//文章描述
+    private String name;//标题
+    private String thumb;//图片id，本例使用静态图片
+    private String update_time;//时间
+    private String description;//描述
     private String technoname;//技术类别
     private String pdfattach;//pdf地址
     private String videopath;//视频路径

@@ -58,6 +58,8 @@
         <activity
             android:name=".activity.CollectActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.FocusActivity" />
+        <activity android:name=".activity.FocusUserResListActivity"></activity>
     </application>
 
 </manifest>

@@ -9,13 +9,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.lzw.zyfypt_303_lzw.R;
 import com.example.lzw.zyfypt_303_lzw.activity.DetailActivity;
 import com.example.lzw.zyfypt_303_lzw.activity.ViewTwareActivity;
 import com.example.lzw.zyfypt_303_lzw.activity.ViewVideoActivity;
 import com.example.lzw.zyfypt_303_lzw.bean.CollectBean;
+import com.example.lzw.zyfypt_303_lzw.bean.MyApplication;
 import com.example.lzw.zyfypt_303_lzw.bean.ResourceBean;
+import com.example.lzw.zyfypt_303_lzw.listener.CollectListener;
+import com.example.lzw.zyfypt_303_lzw.model.CollectModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -30,33 +34,10 @@ public class CollectListAdapter extends RecyclerView.Adapter {
     private LayoutInflater layoutInflater;//动态加载布局
     private List<CollectBean<ResourceBean>> list;//保存要显示的数据
 
+
     public CollectListAdapter(Context context) {
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
-    }
-
-    class ViewHolder extends RecyclerView.ViewHolder {
-
-        //@BindView(R.id.imageView)
-        private ImageView imageView;
-        //@BindView(R.id.textView)
-        private TextView tvtitle;
-        //@BindView(R.id.textView2)
-        private TextView tvdescrrpt;
-        //@BindView(R.id.textView3)
-        private TextView tvtime;
-        //@BindView(R.id.button)
-        private Button button;
-
-        ViewHolder(View itemView) {
-            super(itemView);
-            //ButterKnife.bind(itemView);
-            imageView = (ImageView) itemView.findViewById(R.id.imageView);
-            tvtitle = (TextView) itemView.findViewById(R.id.textView);
-            tvdescrrpt = (TextView) itemView.findViewById(R.id.textView2);
-            tvtime = (TextView) itemView.findViewById(R.id.textView3);
-            button = (Button) itemView.findViewById(R.id.button);
-        }
     }
 
     @Override
@@ -67,6 +48,23 @@ public class CollectListAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        final CollectListener listener = new CollectListener() {
+            @Override
+            public void onResponse(String msg) {
+                if (msg.equals("5")) {
+                    list.remove(position);
+                    notifyItemRemoved(position);
+                    Toast.makeText(context, "取消收藏成功", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, "取消收藏失败", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFail(String msg) {
+                Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+            }
+        };
         ResourceBean resourceBean = list.get(position).getBean();
         if (resourceBean == null || list.size() == 0)
             return;
@@ -85,7 +83,9 @@ public class CollectListAdapter extends RecyclerView.Adapter {
         viewHolder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
+                MyApplication application = (MyApplication) context.getApplicationContext();
+                CollectModel model = new CollectModel();
+                model.uncollect(application.getMod(), list.get(position).getResid(), application.getSessionid(), listener);
             }
         });
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +136,30 @@ public class CollectListAdapter extends RecyclerView.Adapter {
 
     public void setList(List<CollectBean<ResourceBean>> list) {
         this.list = list;
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder {
+
+        //@BindView(R.id.imageView)
+        private ImageView imageView;
+        //@BindView(R.id.textView)
+        private TextView tvtitle;
+        //@BindView(R.id.textView2)
+        private TextView tvdescrrpt;
+        //@BindView(R.id.textView3)
+        private TextView tvtime;
+        //@BindView(R.id.button)
+        private Button button;
+
+        ViewHolder(View itemView) {
+            super(itemView);
+            //ButterKnife.bind(itemView);
+            imageView = (ImageView) itemView.findViewById(R.id.imageView);
+            tvtitle = (TextView) itemView.findViewById(R.id.textView);
+            tvdescrrpt = (TextView) itemView.findViewById(R.id.textView2);
+            tvtime = (TextView) itemView.findViewById(R.id.textView3);
+            button = (Button) itemView.findViewById(R.id.button);
+        }
     }
 
 }

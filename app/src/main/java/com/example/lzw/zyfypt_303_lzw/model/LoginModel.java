@@ -1,7 +1,7 @@
 package com.example.lzw.zyfypt_303_lzw.model;
 
 
-import com.example.lzw.zyfypt_303_lzw.bean.LoginBean;
+import com.example.lzw.zyfypt_303_lzw.bean.UserBean;
 import com.example.lzw.zyfypt_303_lzw.iface.Loginiface;
 import com.example.lzw.zyfypt_303_lzw.listener.LoginListener;
 import com.example.lzw.zyfypt_303_lzw.service.LoginService;
@@ -33,11 +33,11 @@ public class LoginModel implements Loginiface {
     public void getResultList(String username, String password, final LoginListener loginListener) {
         LoginService loginService = retrofit.create(LoginService.class);
 
-        Call<LoginBean> call = loginService.login(username, password);
+        Call<UserBean> call = loginService.login(username, password);
 
-        call.enqueue(new Callback<LoginBean>() {
+        call.enqueue(new Callback<UserBean>() {
             @Override
-            public void onResponse(Call<LoginBean> call, Response<LoginBean> response) {
+            public void onResponse(Call<UserBean> call, Response<UserBean> response) {
                 if (response.isSuccessful() && response != null) {
                     loginListener.onResponse(response.body());
                 } else {
@@ -46,7 +46,7 @@ public class LoginModel implements Loginiface {
             }
 
             @Override
-            public void onFailure(Call<LoginBean> call, Throwable t) {
+            public void onFailure(Call<UserBean> call, Throwable t) {
                 loginListener.onFile(t.toString());
             }
         });

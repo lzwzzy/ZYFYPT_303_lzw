@@ -1,7 +1,7 @@
 package com.example.lzw.zyfypt_303_lzw.service;
 
 
-import com.example.lzw.zyfypt_303_lzw.bean.LoginBean;
+import com.example.lzw.zyfypt_303_lzw.bean.UserBean;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -14,7 +14,7 @@ import retrofit2.http.Query;
 
 public interface LoginService {
     @GET("api.php/login")
-    Call<LoginBean> login(@Query("username") String username,
-                          @Query("password") String password);
+    Call<UserBean> login(@Query("username") String username,
+                         @Query("password") String password);
 
 }

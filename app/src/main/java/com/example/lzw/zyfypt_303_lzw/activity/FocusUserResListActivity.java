@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import com.example.lzw.zyfypt_303_lzw.R;
 import com.example.lzw.zyfypt_303_lzw.adapter.TabFragmentAdapter;
 import com.example.lzw.zyfypt_303_lzw.bean.MyApplication;
-import com.example.lzw.zyfypt_303_lzw.fragment.collect.CollectFragment;
+import com.example.lzw.zyfypt_303_lzw.fragment.focus.FocusFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CollectActivity extends AppCompatActivity {
+public class FocusUserResListActivity extends AppCompatActivity {
 
     @BindView(R.id.view_pager)
     ViewPager viewPager;
@@ -37,15 +37,16 @@ public class CollectActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_collect);
+        setContentView(R.layout.activity_focus_user_res_list);
         ButterKnife.bind(this);
         toolBarInit();
         application = (MyApplication) getApplication();
         List<Fragment> fragments = new ArrayList<Fragment>();
         application.setMod("article");
         for (String title : titles) {
-            Fragment fragment = new CollectFragment();
+            Fragment fragment = new FocusFragment();
             Bundle bundle = new Bundle();
+            bundle.putInt("userid", getIntent().getIntExtra("userid", 1));
             switch (title) {
                 case "文章":
                     bundle.putString("text", "article");
@@ -106,7 +107,7 @@ public class CollectActivity extends AppCompatActivity {
     private void toolBarInit() {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("收藏列表");
+        actionBar.setTitle(getIntent().getStringExtra("realname") + "的作品");
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
     }
@@ -124,6 +125,4 @@ public class CollectActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.login, menu);//加载菜单布局
         return true;
     }
-
-
 }

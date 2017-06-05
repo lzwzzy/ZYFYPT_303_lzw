@@ -4,7 +4,7 @@ package com.example.lzw.zyfypt_303_lzw.bean;
  * Created by lzw on 2017/5/2.
  */
 
-public class LoginBean {
+public class UserBean {
     private int id;
     private String username;
     private String realname;

@@ -17,7 +17,9 @@ import android.widget.Toast;
 import com.example.lzw.zyfypt_303_lzw.R;
 import com.example.lzw.zyfypt_303_lzw.bean.MyApplication;
 import com.example.lzw.zyfypt_303_lzw.listener.CollectListener;
+import com.example.lzw.zyfypt_303_lzw.listener.FocusListener;
 import com.example.lzw.zyfypt_303_lzw.model.CollectModel;
+import com.example.lzw.zyfypt_303_lzw.model.FocusModel;
 
 import static android.content.ContentValues.TAG;
 
@@ -35,7 +37,7 @@ public class DetailActivity extends AppCompatActivity {
     private int userid;//资源用户id
     private String name;
     private Boolean flagcollect = false;//收藏标志
-    CollectListener listener = new CollectListener() {
+    CollectListener collectListener = new CollectListener() {
         @Override
         public void onResponse(String msg) {
             //获取菜单视图
@@ -83,7 +85,55 @@ public class DetailActivity extends AppCompatActivity {
         }
     };
     private Boolean flagfocus = false;//关注标志
+    FocusListener focusListener = new FocusListener() {
+        @Override
+        public void onResponse(String msg) {
+            //获取菜单视图
+            ActionMenuItemView item = (ActionMenuItemView) findViewById(R.id.menufocus);
+            //根据mode中response返回的字符串区分返回结果
+            switch (msg) {
+                case "2":
+                    System.out.println("----关注成功");
+                    Toast.makeText(context, "关注成功", Toast.LENGTH_SHORT).show();
+                    flagfocus = true;
+                    item.setTitle("取消关注");
+                    break;
+                case "1":
+                    System.out.println("----关注失败");
+                    Toast.makeText(context, "关注失败", Toast.LENGTH_SHORT).show();
+                    break;
+                case "5":
+                    System.out.println("----取消关注成功");
+                    Toast.makeText(context, "取消关注成功", Toast.LENGTH_SHORT).show();
+                    flagfocus = false;
+                    item.setTitle("关注");
+                    break;
+                case "4":
+                    System.out.println("----取消关注失败");
+                    Toast.makeText(context, "取消关注失败", Toast.LENGTH_SHORT).show();
+                    break;
+                case "7":
+                    System.out.println("----已关注");
+                    flagfocus = true;
+                    item.setTitle("取消关注");
+                    break;
+                case "8":
+                    System.out.println("----未关注");
+                    flagfocus = false;
+                    item.setTitle("关注");
+                    break;
+                default:
+                    Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        public void onFail(String msg) {
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+        }
+    };
     private CollectModel collectmodel;//收藏model
+    private FocusModel focusModel;//关注model
     private String sessionID = "";  //sessionid
 
     @Override
@@ -99,8 +149,6 @@ public class DetailActivity extends AppCompatActivity {
         userid = getIntent().getIntExtra("userid", 7);//获取传递的资源用户id
         toolBarInit();
         webviewInit();
-
-
     }
 
     private void webviewInit() {
@@ -133,7 +181,9 @@ public class DetailActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.detail, menu);//加载菜单布局
         collectmodel = new CollectModel();//实例化对象
-        collectmodel.exist(mod, resid, sessionID, listener);//判断是否收藏
+        focusModel = new FocusModel();//实例化对象
+        collectmodel.exist(mod, resid, sessionID, collectListener);//判断是否收藏
+        focusModel.exist("userfocus", userid, sessionID, focusListener);//判断是否关注
         return true;
     }
 
@@ -145,11 +195,11 @@ public class DetailActivity extends AppCompatActivity {
                 if (flagcollect)//如果已收藏，则调用取消收藏
                 {
                     System.out.println("----准备取消收藏");
-                    collectmodel.uncollect(mod, resid, sessionID, listener);
+                    collectmodel.uncollect(mod, resid, sessionID, collectListener);
                 } else//如果未收藏，则调用收藏
                 {
                     System.out.println("----准备收藏");
-                    collectmodel.collect(mod, resid, sessionID, listener);
+                    collectmodel.collect(mod, resid, sessionID, collectListener);
                 }
                 break;
             case R.id.menufocus:
@@ -157,9 +207,11 @@ public class DetailActivity extends AppCompatActivity {
                 if (flagfocus)//如果已关注，则调用取消关注
                 {
                     System.out.println("----准备关注");
+                    focusModel.unfocus("userfocus", userid, sessionID, focusListener);
                 } else//如果未关注，则调用关注
                 {
                     System.out.println("----准备取消关注");
+                    focusModel.focus("userfocus", userid, sessionID, focusListener);
                 }
                 break;
             case android.R.id.home:

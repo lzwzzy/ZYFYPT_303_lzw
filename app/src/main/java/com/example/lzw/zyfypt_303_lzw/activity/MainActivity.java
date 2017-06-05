@@ -50,15 +50,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        application = (MyApplication) getApplication();
+        application.setMod("article");
         initNavigationView();
         init(savedInstanceState);
-
-
         tvUserName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tvUserName);
         tvPhoneNumber = (TextView) navigationView.getHeaderView(0).findViewById(R.id.tvPhoneNumber);
         tvPhoneNumber.setVisibility(View.GONE);
         mLogoutBtn.setVisibility(View.GONE);
-        application = (MyApplication) getApplication();
         sessionid = application.getSessionid();
         if (sessionid == null || sessionid.equals("")) {
             tvUserName.setText("点击头像登录");
@@ -211,7 +210,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 string = "关于";
                 break;
             case R.id.nav_friend:
-                string = "关注";
+                if (sessionid == null) {
+                    string = "请先登陆";
+                } else {
+                    Intent intent = new Intent(this, FocusActivity.class);
+                    startActivity(intent);
+                }
                 break;
             case R.id.nav_message:
                 string = "私信";
@@ -220,9 +224,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 string = "夜间模式";
                 break;
             case R.id.nav_notification:
-                Intent intent = new Intent(this,CollectActivity.class);
-                startActivity(intent);
-                string = "收藏";
+                if (sessionid == null) {
+                    string = "请先登陆";
+                } else {
+                    Intent intent1 = new Intent(this, CollectActivity.class);
+                    startActivity(intent1);
+                }
                 break;
             case R.id.nav_setting:
                 string = "设置";

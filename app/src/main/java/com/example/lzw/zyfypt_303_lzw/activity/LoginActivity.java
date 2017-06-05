@@ -20,8 +20,8 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.lzw.zyfypt_303_lzw.R;
-import com.example.lzw.zyfypt_303_lzw.bean.LoginBean;
 import com.example.lzw.zyfypt_303_lzw.bean.MyApplication;
+import com.example.lzw.zyfypt_303_lzw.bean.UserBean;
 import com.example.lzw.zyfypt_303_lzw.listener.LoginListener;
 import com.example.lzw.zyfypt_303_lzw.model.LoginModel;
 
@@ -51,22 +51,22 @@ public class LoginActivity extends AppCompatActivity {
     private MyApplication application;
     private LoginListener listener = new LoginListener() {
         @Override
-        public void onResponse(LoginBean loginBean) {
+        public void onResponse(UserBean userBean) {
 
-            if (!"".equals(loginBean.getError())) {
-                Log.d(TAG, "onResponse: " + loginBean.getError());
-                Toast.makeText(LoginActivity.this, loginBean.getError(), Toast.LENGTH_SHORT).show();
+            if (!"".equals(userBean.getError())) {
+                Log.d(TAG, "onResponse: " + userBean.getError());
+                Toast.makeText(LoginActivity.this, userBean.getError(), Toast.LENGTH_SHORT).show();
             } else {
                 //如果验证成功跳转到主页
                 Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
                 saveloginInfo();
                 application = (MyApplication) getApplication();
-                application.setSessionid(loginBean.getSessionid());
-                application.setUsername(loginBean.getUsername());
-                application.setRolename(loginBean.getRolename());
-                application.setRealname(loginBean.getRealname());
-                application.setSex(loginBean.getSex());
-                Log.d(TAG, "onResponse: " + loginBean.getSessionid());
+                application.setSessionid(userBean.getSessionid());
+                application.setUsername(userBean.getUsername());
+                application.setRolename(userBean.getRolename());
+                application.setRealname(userBean.getRealname());
+                application.setSex(userBean.getSex());
+                Log.d(TAG, "onResponse: " + userBean.getSessionid());
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
             }
